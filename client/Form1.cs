@@ -14,6 +14,8 @@ namespace client
 
         public Form1()
         {
+            Control.CheckForIllegalCrossThreadCalls = false;
+            this.FormClosing += new FormClosingEventHandler(Form1_FormClosing);
             InitializeComponent();
             DisableInput();
         }
@@ -26,7 +28,7 @@ namespace client
             SPS_messageBox.Enabled = false;
         }
 
-        private void button_connect_Click(object sender, EventArgs e)
+        private void Button_Connect_Click(object sender, EventArgs e)
         {
             ConnectToServer(textBox_ip.Text, Int32.Parse(textBox_port.Text));
         }
@@ -207,7 +209,7 @@ namespace client
             }
         }
 
-        private void button_send_Click(object sender, EventArgs e)
+        private void IF_Send_Click(object sender, EventArgs e)
         {
             string message = IF_messageBox.Text;
             IF_messageBox.Clear();
@@ -215,7 +217,7 @@ namespace client
             {
                 try
                 {
-                    string formattedMessage = "MESSAGE " + message;
+                    string formattedMessage = "MESSAGE:" + message + ":IF100";
                     SendToServer(formattedMessage);
                 }
                 catch (Exception ex)
@@ -241,12 +243,16 @@ namespace client
             {
                 SendToServer("SUBSCRIBE:IF100"); // Send subscription message for specific channel.
                 subscribedToIF100 = true;
+                IF_messageBox.Enabled = true;
+                IF_send.Enabled = true;
                 // Update UI to indicate subscription status.
             }
             else
             {
                 SendToServer("UNSUBSCRIBE:IF100"); // Send subscription message for specific channel.
                 subscribedToIF100 = false;
+                IF_send.Enabled = false;
+                IF_messageBox.Enabled = false;
             }
         }
 
@@ -256,12 +262,39 @@ namespace client
             {
                 SendToServer("SUBSCRIBE:SPS101"); // Send subscription message for specific channel.
                 subscribedToSPS101 = true;
+                SPS_send.Enabled = true;
+                SPS_messageBox.Enabled = true;
                 // Update UI to indicate subscription status.
             }
             else
             {
                 SendToServer("UNSUBSCRIBE:SPS101"); // Send subscription message for specific channel.
                 subscribedToSPS101 = false;
+                SPS_messageBox.Enabled = false;
+                SPS_send.Enabled = false;
+            }
+        }
+
+        private void SPS_send_Click(object sender, EventArgs e)
+        {
+            string message = SPS_messageBox.Text;
+            SPS_messageBox.Clear();
+            if (!string.IsNullOrEmpty(message))
+            {
+                try
+                {
+                    string formattedMessage = "MESSAGE:" + message + ":SPS101";
+                    SendToServer(formattedMessage);
+                }
+                catch (Exception ex)
+                {
+                    DisplayLog("Sending message failed: " + ex.Message);
+                }
+            }
+            if (clientSocket == null || !clientSocket.Connected)
+            {
+                DisplayLog("Error: Not connected to server. Please connect first.");
+                return;
             }
         }
 

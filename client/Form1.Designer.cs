@@ -96,7 +96,7 @@
             this.button_connect.TabIndex = 4;
             this.button_connect.Text = "connect";
             this.button_connect.UseVisualStyleBackColor = true;
-            this.button_connect.Click += new System.EventHandler(this.button_connect_Click);
+            this.button_connect.Click += new System.EventHandler(this.Button_Connect_Click);
             // 
             // IF_logs
             // 
@@ -136,7 +136,7 @@
             this.IF_send.TabIndex = 8;
             this.IF_send.Text = "send";
             this.IF_send.UseVisualStyleBackColor = true;
-            this.IF_send.Click += new System.EventHandler(this.button_send_Click);
+            this.IF_send.Click += new System.EventHandler(this.IF_Send_Click);
             // 
             // label4
             // 
@@ -239,6 +239,7 @@
             this.SPS_send.TabIndex = 18;
             this.SPS_send.Text = "send";
             this.SPS_send.UseVisualStyleBackColor = true;
+            this.SPS_send.Click += new System.EventHandler(this.SPS_send_Click);
             // 
             // label8
             // 
