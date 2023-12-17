@@ -241,15 +241,14 @@ namespace client
         {
             if (!subscribedToIF100)
             {
-                SendToServer("SUBSCRIBE:IF100"); // Send subscription message for specific channel.
+                SendToServer("SUBSCRIBE:IF100");
                 subscribedToIF100 = true;
                 IF_messageBox.Enabled = true;
                 IF_send.Enabled = true;
-                // Update UI to indicate subscription status.
             }
             else
             {
-                SendToServer("UNSUBSCRIBE:IF100"); // Send subscription message for specific channel.
+                SendToServer("UNSUBSCRIBE:IF100"); 
                 subscribedToIF100 = false;
                 IF_send.Enabled = false;
                 IF_messageBox.Enabled = false;
@@ -260,15 +259,14 @@ namespace client
         {
             if (!subscribedToSPS101)
             {
-                SendToServer("SUBSCRIBE:SPS101"); // Send subscription message for specific channel.
+                SendToServer("SUBSCRIBE:SPS101"); 
                 subscribedToSPS101 = true;
                 SPS_send.Enabled = true;
                 SPS_messageBox.Enabled = true;
-                // Update UI to indicate subscription status.
             }
             else
             {
-                SendToServer("UNSUBSCRIBE:SPS101"); // Send subscription message for specific channel.
+                SendToServer("UNSUBSCRIBE:SPS101");
                 subscribedToSPS101 = false;
                 SPS_messageBox.Enabled = false;
                 SPS_send.Enabled = false;
